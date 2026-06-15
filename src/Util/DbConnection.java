@@ -1,2 +1,38 @@
-package Util;public class DbConnection {
+package Util;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+
+public class DbConnection {
+    private static final String URL = "jdbc:mysql://localhost:3306/employee_management?useSSL=false&serverTimezone=UTC";
+    private static final String USER = "root";
+    private static final String PASSWORD = "Krishna@2603";
+
+    private static Connection connection = null;
+
+    public DbConnection() {}
+
+    public static Connection getConnection() throws SQLException{
+        if (connection == null || connection.isClosed()){
+            try{
+                Class.forName("com.mysql.cj.jdbc.Driver");
+                connection = DriverManager.getConnection(URL, USER, PASSWORD);
+            } catch (ClassNotFoundException e) {
+                throw new SQLException("MySQL JDBC Driver not found: " + e.getMessage());
+            }
+        }
+        return connection;
+    }
+
+    public static void closeConnection(){
+        if (connection != null){
+            try{
+                connection.close();
+                System.out.println("Database connection closed");
+            }catch (SQLException e){
+                System.err.println("Error closing connection: " + e.getMessage());
+            }
+        }
+    }
 }
