@@ -84,13 +84,13 @@ public class Main {
         int mgr = readInt("Manager ID (0 if none): ");
 
         Employee emp = new Employee(fn, ln, em, ph, deptId, desigId, sal, hireDate, mgr == 0 ? null : mgr);
-        System.out.println(empSvc.registerEmployee(emp) ? "✔ Employee added." : "✘ Failed.");
+        System.out.println(empSvc.registerEmployee(emp) ? "Employee added." : "Failed.");
     }
 
     private static void listAllEmployees() {
         List<Employee> list = empSvc.getAllEmployees();
         System.out.println("\n======= ALL EMPLOYEES =======");
-        list.forEach(e -> System.out.printf("ID: %3d | %-20s | %-15s | %-20s | ₹%,.2f%n",
+        list.forEach(e -> System.out.printf("ID: %3d | %-20s | %-15s | %-20s | INR %,.2f%n",
                 e.getEmployeeId(), e.getFullName(), e.getDepartmentName(),
                 e.getDesignationName(), e.getSalary()));
     }
@@ -106,25 +106,25 @@ public class Main {
     private static void updateSalary() {
         int id        = readInt("Employee ID  : ");
         double salary = readDouble("New Salary   : ");
-        System.out.println(empSvc.updateSalary(id, salary) ? "✔ Salary updated." : "✘ Failed.");
+        System.out.println(empSvc.updateSalary(id, salary) ? "Salary updated." : "Failed.");
     }
 
     private static void assignDept() {
         int empId  = readInt("Employee ID   : ");
         int deptId = readInt("Department ID : ");
-        System.out.println(empSvc.assignDepartment(empId, deptId) ? "✔ Department assigned." : "✘ Failed.");
+        System.out.println(empSvc.assignDepartment(empId, deptId) ? "Department assigned." : "Failed.");
     }
 
     private static void deactivateEmployee() {
         int id = readInt("Employee ID to deactivate: ");
-        System.out.println(empSvc.removeEmployee(id) ? "✔ Employee deactivated." : "✘ Failed.");
+        System.out.println(empSvc.removeEmployee(id) ? "Employee deactivated." : "Failed.");
     }
 
     private static void filterBySalary() {
         double min = readDouble("Min Salary: ");
         double max = readDouble("Max Salary: ");
         empSvc.filterBySalary(min, max).forEach(e ->
-                System.out.printf("%-20s | ₹%,.2f%n", e.getFullName(), e.getSalary()));
+                System.out.printf("%-20s | INR %,.2f%n", e.getFullName(), e.getSalary()));
     }
 
     // ─────────────────────────────────────────────────────────────
@@ -141,7 +141,7 @@ public class Main {
             switch (ch) {
                 case 1 -> { System.out.print("Name: ");     String n = sc.nextLine();
                     System.out.print("Location: "); String l = sc.nextLine();
-                    System.out.println(deptSvc.addDepartment(n, l) ? "✔ Added." : "✘ Failed."); }
+                    System.out.println(deptSvc.addDepartment(n, l) ? "Added." : "Failed."); }
                 case 2 -> deptSvc.printAllDepartments();
                 case 0 -> back = true;
             }
@@ -170,9 +170,9 @@ public class Main {
                                 l.getLeaveId(), l.getEmployeeName(), l.getLeaveType(),
                                 l.getStartDate(), l.getEndDate(), l.getTotalDays()));
                 case 4 -> { int lid = readInt("Leave ID to approve: ");
-                    System.out.println(leaveSvc.approveLeave(lid) ? "✔ Approved." : "✘ Failed."); }
+                    System.out.println(leaveSvc.approveLeave(lid) ? "Approved." : "Failed."); }
                 case 5 -> { int lid = readInt("Leave ID to reject: ");
-                    System.out.println(leaveSvc.rejectLeave(lid)  ? "✔ Rejected." : "✘ Failed."); }
+                    System.out.println(leaveSvc.rejectLeave(lid)  ? "Rejected." : "Failed."); }
                 case 0 -> back = true;
             }
         }
@@ -188,7 +188,7 @@ public class Main {
         LocalDate end = LocalDate.parse(sc.nextLine().trim());
         System.out.print("Remarks: ");
         String remarks = sc.nextLine().trim();
-        System.out.println(leaveSvc.applyForLeave(empId, type, start, end, remarks) ? "✔ Leave applied." : "✘ Failed.");
+        System.out.println(leaveSvc.applyForLeave(empId, type, start, end, remarks) ? "Leave applied." : "Failed.");
     }
 
     // ─────────────────────────────────────────────────────────────
@@ -211,7 +211,7 @@ public class Main {
                 });
             }
             case 3 -> empSvc.getEmployeesSortedBySalary().forEach(e ->
-                    System.out.printf("%-20s | ₹%,.2f%n", e.getFullName(), e.getSalary()));
+                    System.out.printf("%-20s | INR %,.2f%n", e.getFullName(), e.getSalary()));
             case 4 -> {
                 int id = readInt("Employee ID: ");
                 Map<Integer, Employee> map = empSvc.getEmployeeLookupMap();

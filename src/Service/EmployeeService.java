@@ -84,7 +84,7 @@ public class EmployeeService {
             List<Employee> emps = entry.getValue();
             double total   = emps.stream().mapToDouble(Employee::getSalary).sum();
             double average = emps.stream().mapToDouble(Employee::getSalary).average().orElse(0);
-            System.out.printf("%-20s | Headcount: %2d | Total: ₹%10.2f | Avg: ₹%8.2f%n",
+            System.out.printf("%-20s | Headcount: %2d | Total: INR %10.2f | Avg: INR %8.2f%n",
                     entry.getKey(), emps.size(), total, average);
         }
         System.out.println("=============================================\n");
